@@ -1,11 +1,19 @@
 import KanbanColumn from "./column";
+import { Column } from "@/types/column";
 
-export default function KanbanBoard() {
+interface Props {
+  columns: Column[];
+}
+
+export default function KanbanBoard({ columns }: Props) {
   return (
-    <div className="flex gap-6 overflow-x-auto pb-4">
-      <KanbanColumn title="To Do" />
-      <KanbanColumn title="In Progress" />
-      <KanbanColumn title="Done" />
+    <div className="flex gap-6 overflow-x-auto">
+      {columns.map((column) => (
+        <KanbanColumn
+          key={column.id}
+          title={column.title}
+        />
+      ))}
     </div>
   );
 }

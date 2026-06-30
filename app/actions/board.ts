@@ -110,3 +110,20 @@ export async function getBoards() {
 
   return data;
 }
+
+export async function getColumns(boardId: string) {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("columns")
+    .select("*")
+    .eq("board_id", boardId)
+    .order("position", { ascending: true });
+
+  if (error) {
+    console.error("GET COLUMNS ERROR:", error);
+    return [];
+  }
+
+  return data ?? [];
+}
